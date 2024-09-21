@@ -1,4 +1,8 @@
+from typing import TypeVar
+
 from model import BaseDBModel
+
+T = TypeVar("T", bound=BaseDBModel)
 
 
 # Original model
@@ -11,9 +15,7 @@ class OriginalModel(BaseDBModel):
 
 
 # Function to modify the model class itself by keeping only the specified fields
-def modify_model_to_include(
-    model: type[BaseDBModel], include_fields: list[str]
-) -> type[BaseDBModel]:
+def modify_model_to_include(model: type[T], include_fields: list[str]) -> type[T]:
     """Return a model with only the specified fields included."""
     # Get all fields from model
     all_fields = set(model.__annotations__.keys())

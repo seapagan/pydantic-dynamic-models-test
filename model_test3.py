@@ -1,6 +1,10 @@
 """Another example by modifying the model class itself."""
 
+from typing import TypeVar
+
 from model import BaseDBModel
+
+T = TypeVar("T", bound=BaseDBModel)
 
 
 # Original model
@@ -13,9 +17,7 @@ class OriginalModel(BaseDBModel):
 
 
 # Function to modify the model class itself by removing unwanted fields
-def modify_model(
-    model: type[BaseDBModel], exclude_fields: list[str]
-) -> type[BaseDBModel]:
+def modify_model(model: type[T], exclude_fields: list[str]) -> type[T]:
     """ "Return a model with specified fields excluded."""
     # Remove fields from model's __annotations__ and model_fields
     for field in exclude_fields:
